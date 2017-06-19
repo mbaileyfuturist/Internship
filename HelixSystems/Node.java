@@ -26,18 +26,16 @@ public class Node {
 	}
 	
 	public machineType setType(){
-		machineType type = null;
+		machineType type;
 		
 		if(this.type.equalsIgnoreCase("Physical")){
-			type = type.PHYSICAL;
-		}
-		
-		else if(this.type.equalsIgnoreCase("Virtual")){
-			type = type.VIRTUAL;
-		}
-		
-		else if(this.type.equalsIgnoreCase("HyperVisor")){
-			type = type.HYPERVISOR;
+		    type = type.PHYSICAL;
+		}else if(this.type.equalsIgnoreCase("Virtual")){
+		    type = type.VIRTUAL;
+		}else if(this.type.equalsIgnoreCase("HyperVisor")){
+		    type = type.HYPERVISOR;
+		}else{
+			throw RuntimeException("unknown type specified");
 		}
 		
 		return type;

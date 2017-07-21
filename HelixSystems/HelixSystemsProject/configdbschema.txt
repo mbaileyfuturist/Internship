@@ -1,0 +1,37 @@
+CREATE TABLE hosts (
+        `hostname` varchar(255) PRIMARY KEY,
+        `phase` enum('phase1','b1','phase2_buy-in','service_node','phase3_buy-in','phase3','other','phase2'),
+        `description` varchar(64),
+        `last_modified` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+        `modified_by` varchar(16) NOT NULL,
+        `installed` timestamp DEFAULT '1970-01-01 00:00:00',
+        `updated`  timestamp DEFAULT '1970-01-01 00:00:00',
+        `serialnumber` varchar(80),
+        `location` varchar(12),
+        `hardware` enum( 'x5660 core12 cpu24 g24 sata100 1g','database','x2670 core16 cpu32 g128 sata400 1g','x2680 core28 cpu56 g256 ssd800 ibfdr','x2600 core16 cpu32 g64 sata400 ibqdr','object storage','singularity','other','x4620 core32 cpu64 g1024 ssd800 eth10g','virtual','x8860 core72 cpu144 g3072 ssd800 ibfdr','x2600 core16 cpu32 g32 sata400 ibqdr','e2666 core8 cpu16 g24 sata200 1g','ufm','x8860 core72 cpu144 g1536 ssd800 ibfdr','e2666 core8 cpu16 g24 sata200 1g gpu','x2650 core16 cpu32 g64 ssd800 eth10g ibfdr','x5550 core8 cpu16 g72 sata200 1g','x2650 core16 cpu32 g128 ssd800 eth10g','netapp','ddn12k','dtn','x2695 core28 cpu56 g256 ssd400 ibfdr','x2680 core28 cpu56 g1536 ssd800 ibfdr','x2670 core16 cpu32 g64 sata400 1g','x2680 core28 cpu56 g256 gpuk80 ssd800 ibfdr','x2650 core16 cpu32 g128 ssd800 gpuk20x eth10g ibfdr','x2695 core28 cpu56 g256 ssd400 gpuk80 ibfdr','x5550 core8 cpu16 g24 sata200 1g','vhm','ddn10k','x5650 core12 cpu12 g48 sata600 gpum2050 1g', '' ),
+        `ansible_group` set( 'common','mailhost','vm_ipoib','unlimited_nodes','devel_cluster_nodes','helixdrive_servers','phase2_nodes','ccrclin_nodes','mascot-head','slurmctl','qmbp','standard_nodes','hpcwebservers','spoved','backwulf','b1_nodes','nagios','ibfdr_nodes','mascot_nodes','ibqdr_nodes','ccr_nodes','web_servers','all_compute_nodesnorm_nodes','mysql_nodes','pc5','nimh_nodes','gpfs_svcnodes','largemem_nodes','media_servers','gpu_nodes','felix','quick_nodes','helixdrive','tickets','gpfs_clients','vmh','helixdev','dtn_nodes','tripwire','sciware','noded','niddk_nodes','b2tree','other_nodes','badmin','vmh_nodes','mysql','biowulf2', 'NULL' ) );
+CREATE TABLE interfaces (
+        `interface_id` int(10) unsigned AUTO_INCREMENT PRIMARY KEY,
+        `hostname` varchar(255) NOT NULL,
+        `private_name` varchar(255) NULL,
+        `primary` boolean DEFAULT false,
+        `interface` varchar(5) NULL,
+        `designation` enum( 'e0', 'e1', 'e2', 'ilo', 'mgmt', 'exthost' ) NOT NULL,
+        `mac` varchar(17) NULL,
+        `ipv4` varchar(15) NULL,
+        `ipv6` varchar(79) NULL,
+        INDEX priv_ind(private_name),
+        INDEX ipv4_ind(ipv4),
+        INDEX host_ind(hostname),
+        FOREIGN KEY (hostname)
+            REFERENCES `hosts` (`hostname`)
+            ON DELETE CASCADE
+        );
+CREATE TABLE ansible_groups (
+        `groupname` varchar(64) PRIMARY KEY,
+        `parent` varchar(64) NULL);
+CREATE TABLE retired (
+        `retired_id` int(10) unsigned AUTO_INCREMENT PRIMARY KEY,
+        `hostname` varchar(255) NOT NULL,
+        `ipv4` varchar(15),
+        `removed` timestamp DEFAULT CURRENT_TIMESTAMP);

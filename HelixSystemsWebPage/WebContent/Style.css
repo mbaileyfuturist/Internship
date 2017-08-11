@@ -14,6 +14,7 @@ a{
 	color: #337ab7;
 }
 
+/*===TABLE===*/
 table, th, td {
 	font-family: arial;
     border: 1px solid black;
@@ -54,7 +55,7 @@ th {
 	font-weight: bold;
 }
 
-/*Style for Popup box*/
+/*===POPUP BOX===*/
 .popup-position{
 	position:fixed;
 	top: 0;
@@ -64,7 +65,6 @@ th {
 	width: 100%;
 	height: 100%;
 }
-
 #popup-wrapper{
 	width:1000px;
 	margin: 75px auto;
@@ -81,13 +81,13 @@ th {
 #hostname{
 	float:left;
 }
-/*Style for inner tables.*/
+
+/*===POPUP TABLES===*/
 #system_info{
 	width:45%;
 	float:left;
 	margin-left:10px;
 }
-
 #system_events{
 	width:45%;
 	float:left;

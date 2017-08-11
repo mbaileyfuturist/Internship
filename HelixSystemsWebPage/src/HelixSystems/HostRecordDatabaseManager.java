@@ -65,6 +65,13 @@ public class HostRecordDatabaseManager  {
 		}
 	}
  
+    /**
+     * Attempts to establish a connection to the Helixmon database, then 
+     * creates and returns a LinkedHashMap maping from a hostname to its 
+     * corresponding hostRecord from the database.
+     * @return hostToRecord: A LinkedHashMap maping from the hostname to the coresponding hostRecord.
+     * @throws ClassNotFoundException
+     */
     public static Map<String, HostRecord> getMapFromDatabase() throws ClassNotFoundException{
     	Map<String, HostRecord> hostToRecord = new LinkedHashMap<String, HostRecord>();
     	try{
@@ -78,11 +85,11 @@ public class HostRecordDatabaseManager  {
 			ResultSet resultSet = statement.executeQuery(querry);
 			while(resultSet.next()){
 				hostToRecord.put(resultSet.getString("hostname"), new HostRecord(resultSet.getString("hostname"), resultSet.getString("os"), resultSet.getString("kernel"),
-							resultSet.getString("ip_clusternet"), resultSet.getString("ip_helixnet"), resultSet.getString("repos"),
-						 	resultSet.getInt("gpfs_configured"), resultSet.getInt("gpfs_mounted"), resultSet.getInt("update_packages"),
-							resultSet.getInt("security_packages"), resultSet.getString("last_boot"), resultSet.getString("last_checkin"), 
-							resultSet.getString("last_yum_update"), resultSet.getString("hosttype"), resultSet.getString("virt_guests"), 
-							resultSet.getInt("update_exception")));
+					resultSet.getString("ip_clusternet"), resultSet.getString("ip_helixnet"), resultSet.getString("repos"),
+				 	resultSet.getInt("gpfs_configured"), resultSet.getInt("gpfs_mounted"), resultSet.getInt("update_packages"),
+					resultSet.getInt("security_packages"), resultSet.getString("last_boot"), resultSet.getString("last_checkin"), 
+					resultSet.getString("last_yum_update"), resultSet.getString("hosttype"), resultSet.getString("virt_guests"), 
+					resultSet.getInt("update_exception")));
 			}
 			connection.close();
 			resultSet.close();
@@ -93,6 +100,11 @@ public class HostRecordDatabaseManager  {
     	return hostToRecord;
     }
     
+    /**
+     * This method will attempt to establish a connection to the Helixmon database,
+     * then stores the hostrecords from the database into an arraylist.
+     * @return hostRecords: An arraylist of the hostrecords from the Helixmon database.
+     */
     public static List<HostRecord> getListFromDataBase(){
     	List<HostRecord> hostRecords = new ArrayList<HostRecord>();
     	try{
@@ -105,11 +117,11 @@ public class HostRecordDatabaseManager  {
 			ResultSet resultSet = statement.executeQuery(querry);
 			while(resultSet.next()){
 				hostRecords.add(new HostRecord(resultSet.getString("hostname"), resultSet.getString("os"), resultSet.getString("kernel"),
-							resultSet.getString("ip_clusternet"), resultSet.getString("ip_helixnet"), resultSet.getString("repos"),
-						 	resultSet.getInt("gpfs_configured"), resultSet.getInt("gpfs_mounted"), resultSet.getInt("update_packages"),
-							resultSet.getInt("security_packages"), resultSet.getString("last_boot"), resultSet.getString("last_checkin"), 
-							resultSet.getString("last_yum_update"), resultSet.getString("hosttype"), resultSet.getString("virt_guests"), 
-							resultSet.getInt("update_exception")));
+					resultSet.getString("ip_clusternet"), resultSet.getString("ip_helixnet"), resultSet.getString("repos"),
+				 	resultSet.getInt("gpfs_configured"), resultSet.getInt("gpfs_mounted"), resultSet.getInt("update_packages"),
+					resultSet.getInt("security_packages"), resultSet.getString("last_boot"), resultSet.getString("last_checkin"), 
+					resultSet.getString("last_yum_update"), resultSet.getString("hosttype"), resultSet.getString("virt_guests"), 
+					resultSet.getInt("update_exception")));
 			}
 			connection.close();
 			resultSet.close();
@@ -119,6 +131,14 @@ public class HostRecordDatabaseManager  {
 		return hostRecords;
     }
     
+    /**
+     * This method will attempt to establish a connection to the Helixmon database and will 
+     * send the querry passed in the parameter to get different results from  the database. 
+     * then store the results into a LinkedHashMap maping from the hostname to the hostRecord.
+     * @param query
+     * @return
+     * @throws ClassNotFoundException
+     */
     public static Map<String, HostRecord> getMapFromQuery(String query) throws ClassNotFoundException{
     	Map<String, HostRecord> hostToElement = new LinkedHashMap<String, HostRecord>();
     	try{
@@ -130,11 +150,11 @@ public class HostRecordDatabaseManager  {
 			ResultSet resultSet = statement.executeQuery(query);
 			while(resultSet.next()){
 				hostToElement.put(resultSet.getString("hostname"), new HostRecord(resultSet.getString("hostname"), resultSet.getString("os"), resultSet.getString("kernel"),
-							resultSet.getString("ip_clusternet"), resultSet.getString("ip_helixnet"), resultSet.getString("repos"),
-							resultSet.getInt("gpfs_configured"), resultSet.getInt("gpfs_mounted"), resultSet.getInt("update_packages"),
-							resultSet.getInt("security_packages"), resultSet.getString("last_boot"), resultSet.getString("last_checkin"), 
-							resultSet.getString("last_yum_update"), resultSet.getString("hosttype"), resultSet.getString("virt_guests"), 
-							resultSet.getInt("update_exception")));
+					resultSet.getString("ip_clusternet"), resultSet.getString("ip_helixnet"), resultSet.getString("repos"),
+					resultSet.getInt("gpfs_configured"), resultSet.getInt("gpfs_mounted"), resultSet.getInt("update_packages"),
+					resultSet.getInt("security_packages"), resultSet.getString("last_boot"), resultSet.getString("last_checkin"), 
+					resultSet.getString("last_yum_update"), resultSet.getString("hosttype"), resultSet.getString("virt_guests"), 
+					resultSet.getInt("update_exception")));
 			}
 			connection.close();
 			resultSet.close();
@@ -146,6 +166,14 @@ public class HostRecordDatabaseManager  {
     	return hostToElement;
     }
 
+    /**
+     * This method will attempt to establish a connection to the Helixmon database and will 
+     * send the querry passed in the parameter to get different hostRecords from  the database. 
+     * then store the hostRecords into an ArrayList.
+     * @param query: The sql querry that will be given to the database.
+     * @return hostRecords: An ArrayList of hostrecords from the Helixmon database. 
+     * @throws ClassNotFoundException
+     */
     public static List<HostRecord> getListFromQuery(String query) throws ClassNotFoundException{
     	List<HostRecord> hostRecords= new ArrayList<HostRecord>();
     	try{

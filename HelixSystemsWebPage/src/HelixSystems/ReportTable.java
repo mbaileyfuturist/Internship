@@ -51,7 +51,7 @@ public class ReportTable {
 		StringBuilder header = new StringBuilder("<table id = \"system_overview\">");
 		header.append("<!-- Table Header that contains sort and filter forms. -->");
 		header.append("<tr>");
-		header.append("<th colspan = \"10\">System Overview");
+		header.append("<th colspan = \"11\">System Overview");
 		header.append("<form action = \"sortBy.jsp\">");
 		header.append("<label>Sort By</label>");
 		header.append("<select name = \"sortBy\">");
@@ -67,6 +67,9 @@ public class ReportTable {
 		header.append("<option value = \"upToDate\">up to date</option>");
 		header.append("<option value = \"needsUpdates\">needs updates</option>");
 		header.append("<option value = \"GPFSNodes\">running GPFS nodes</option>");
+		header.append("<option value = \"physical\">physical machine</option>");
+		header.append("<option value = \"virtual\">virtual machine</option>");
+		header.append("<option value = \"hypervisor\">hypervisor</option>");
 		header.append("</select>");
 		header.append("<input type = \"Submit\" value = \"Submit\">");
 		header.append("<input type=\"text\" id=\"myInput\" onkeyup=\"searchFilter()\" placeholder=\"Search for hostnames..\">");
@@ -85,6 +88,7 @@ public class ReportTable {
 		names.append("<tr class = \"column_title\">");
 		names.append("<td><strong>Status</strong></td>");
 		names.append("<td><strong>Hostname</strong></td>");
+		names.append("<td><strong>Description</strong></td>");
 		names.append("<td><strong>Update Packages</strong></td>");
 		names.append("<td  colspan = \"2\"><strong>os</strong></td>");
 		names.append("<td><strong>Kernal Version</strong></td>");
@@ -159,6 +163,7 @@ public class ReportTable {
 			}
 			table.append("<td>" + status +"</td>"); 
 			table.append("<td><a href =\"javascript:void(0)\" onclick=\"toggle_visibility('popup-box-" + hostRecord.getHostname() + "');\">" + hostRecord.getHostname() + "</td>");
+			table.append("<td>" + ConfigDbTest.getDescription(hostRecord.getHostname()) + "</td>");
 			table.append("<td>" + hostRecord.getUpdate_packages() + "</td>"); 
 			table.append("<td><img src= \"" + src + "\" width=\"50\" height=\"45\"/></td>"); 
 			table.append("<td>" + hostRecord.getOs() + "</td>"); 
@@ -166,7 +171,7 @@ public class ReportTable {
 			table.append("<td>" + hostRecord.getHosttype() + "</td>") ;
 			table.append("<td>" + hostRecord.getLast_checkin() + "</td>");
 			table.append("<td>" + hostRecord.hasGPFSNodes() + "</td>");
-			table.append("<td>Blank</td>");
+			table.append("<td>" + ConfigDbTest.getPerosonOfReference(hostRecord.getHostname())+ "</td>");
 			table.append("</tr>");
 			table.append("\n");
 		}

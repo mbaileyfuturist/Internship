@@ -7,10 +7,10 @@
 <%@ page import="java.util.Iterator" %>
 <html>
 	<head>
-	<meta charset = "UTF-8">
-	<link rel="stylesheet" type="text/css" href="Style.css">
-	<title>Helix Systems</title>
-	<script src="functionality.js"></script>
+		<meta charset = "UTF-8">
+		<link rel="stylesheet" type="text/css" href="Style.css">
+		<title>Helix Systems</title>
+		<script src="functionality.js"></script>
 	</head>
 	
 	<body>
@@ -26,8 +26,8 @@
 		<%= ReportTable.fullTable(currentList)%>
 		<%= ReportTable.footer()%>
 		<% Iterator<HostRecord> iterate = currentList.iterator();%>
-			<%  while(iterate.hasNext()){ %>
-			<%=	   ReportTable.popUp(currentList, iterate.next().getHostname())%>
-			<%}%>
+		<% while(iterate.hasNext()){ %>
+		<%= ReportTable.popUp(currentList, iterate.next().getHostname())%>
+		<%}%>
 	</body>
 </html>
